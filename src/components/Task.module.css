@@ -2,7 +2,6 @@
   width: 100%;
   max-width: 736px;
   margin: calc(54px / 2 * -1) auto 0;
-
 }
 
 @media (max-width: 736px) {
@@ -30,31 +29,31 @@
 
 .taskForm input:focus {
   color: var(--white);
-  outline: transparent;
-  border-color: var(--purple-300);
+  outline: 1px solid var(--purple-300);
+
+  /* Alternative code border on focus */
+  /* outline: transparent;
+  border-color: var(--purple-300); */
 }
 
 .taskForm button {
   color: var(--gray-100);
-  width: 100%;
-  height: 52px;
   font-size: 0.875rem;
   font-weight: bold;
   background: var(--blue-700);
   border-radius: 8px;
-  max-width: 90px;
-  border: 0;
   padding: 1rem;
-  transition: color 0.1s, background-color 0.1s;
-}
-
-.taskForm a {
+  transition: background-color 0.1s;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .taskForm button:hover {
+  background-color: var(--blue-300);
+}
+
+.taskForm button:focus {
   background-color: var(--blue-300);
 }

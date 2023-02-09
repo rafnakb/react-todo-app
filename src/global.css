@@ -23,6 +23,10 @@
   box-sizing: border-box;
 }
 
+button {
+  all: unset;
+}
+
 body {
   background: var(--gray-600);
   -webkit-font-smoothing: antialiased;
@@ -32,4 +36,5 @@ body, input, textarea, button {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 1rem;
+  line-height: 140%; 
 }

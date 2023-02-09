@@ -1,0 +1,65 @@
+.taskItem {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 1rem;
+  margin-bottom: 12px;
+  background: var(--gray-500);
+  border-radius: 8px;
+  border: solid 1px var(--gray-400);
+  color: var(--gray-100);
+}
+
+.taskItem p {
+  width: 100%;
+}
+
+.taskItem .checked svg circle {
+  stroke: var(--purple-700);
+}
+
+.taskItem .checked svg circle:first-of-type {
+  fill: var(--purple-700);
+  opacity: 1;
+}
+
+.taskItem .checked svg polyline {
+  stroke: var(--gray-100);
+}
+
+.taskItem .checked:hover svg circle {
+  stroke: var(--purple-300);
+}
+
+.taskItem .checked:hover svg circle:first-of-type {
+  fill: var(--purple-300);
+  opacity: 1;
+}
+
+.taskItem .unchecked svg circle {
+  width: 24px;
+  height: 24px;
+  stroke: var(--blue-300);
+}
+
+.taskItem .unchecked:hover svg circle {
+  stroke: var(--blue-700);
+  fill: var(--gray-400);
+}
+
+.taskItem .trash {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  color: var(--gray-300);
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.taskItem .trash:hover {
+  background: var(--gray-400);
+  color: var(--red-500);
+}
