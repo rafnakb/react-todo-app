@@ -1,8 +1,7 @@
 import { Header } from './components/Header';
 import { Task } from './components/Task';
 import './global.css';
-import styles from './App.module.css';
-import { TaskItemList } from './components/TaskListItem';
+import { TaskItemList } from './components/TaskItemList';
 
 export default function App() {
   return (

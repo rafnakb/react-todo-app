@@ -8,47 +8,71 @@
   background: var(--gray-500);
   border-radius: 8px;
   border: solid 1px var(--gray-400);
-  color: var(--gray-100);
 }
 
 .taskItem p {
   width: 100%;
 }
 
-.taskItem .checked svg circle {
+/* Checked (Done) */
+
+.taskItem .done svg circle {
   stroke: var(--purple-700);
 }
 
-.taskItem .checked svg circle:first-of-type {
+.taskItem .done svg circle:first-of-type {
   fill: var(--purple-700);
   opacity: 1;
 }
 
-.taskItem .checked svg polyline {
+.taskItem .done svg polyline {
   stroke: var(--gray-100);
 }
 
-.taskItem .checked:hover svg circle {
+.taskItem .done:hover svg circle {
   stroke: var(--purple-300);
 }
 
-.taskItem .checked:hover svg circle:first-of-type {
+.taskItem .done:hover svg circle:first-of-type {
   fill: var(--purple-300);
   opacity: 1;
 }
 
-.taskItem .unchecked svg circle {
+.taskItem p.done {
+  color: var(--gray-300);
+  text-decoration: line-through;
+}
+
+/* < */
+
+/* Unchecked (Not Done) */
+
+.taskItem .notDone svg circle {
   width: 24px;
   height: 24px;
   stroke: var(--blue-300);
 }
 
-.taskItem .unchecked:hover svg circle {
+.taskItem .notDone svg circle:first-of-type {
+  fill: transparent;
+}
+
+.taskItem .notDone svg polyline {
+  stroke: none;
+}
+
+.taskItem .notDone:hover svg circle {
   stroke: var(--blue-700);
   fill: var(--gray-400);
 }
 
-.taskItem .trash {
+.taskItem p.notDone {
+  color: var(--gray-100);
+}
+
+/* < */
+
+.taskItem .buttonTrash {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,7 +83,7 @@
   border-radius: 4px;
 }
 
-.taskItem .trash:hover {
+.taskItem .buttonTrash:hover {
   background: var(--gray-400);
   color: var(--red-500);
 }

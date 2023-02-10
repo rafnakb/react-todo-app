@@ -1,11 +1,12 @@
-import styles from './TaskList.module.css';
+import { XCircle } from 'phosphor-react';
+import styles from './TaskListInfo.module.css';
 
 interface TaskInfo {
-  createdTaskCount: number;
+  numberOfTasks: number;
   doneTaskCount: number;
 }
 
-export function TaskList({ ...props }: TaskInfo) {
+export function TaskListInfo({ ...props }: TaskInfo) {
 
   return (
     <div className={styles.taskList}>
@@ -13,13 +14,14 @@ export function TaskList({ ...props }: TaskInfo) {
         <strong className={styles.createdTasks}>
           Tarefas Criadas
           <span>
-            {props.createdTaskCount}
+            {props.numberOfTasks}
           </span>
         </strong>
+        
         <strong className={styles.doneTasks}>
           Concluídas
           <span>
-            {props.doneTaskCount}{' de '}{props.createdTaskCount}
+            {props.doneTaskCount}{' de '}{props.numberOfTasks}
           </span>
         </strong>
       </div>

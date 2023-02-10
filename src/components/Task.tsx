@@ -1,13 +1,14 @@
 import styles from './Task.module.css';
-import { PlusCircle } from 'phosphor-react';
-import { MouseEvent, MouseEventHandler, useState } from 'react';
-import { TaskItemList } from './TaskListItem';
-import { TaskList } from './TaskList';
+import { ClipboardText, PlusCircle, XCircle } from 'phosphor-react';
+import { MouseEvent, useState } from 'react';
+import { TaskListInfo } from './TaskListInfo';
+import { TaskItemList } from './TaskItemList';
 
 export function Task() {
 
   const [tasks, setTasks] = useState<string[]>([]);
   const [newTaskText, setNewTaskText] = useState('');
+  const [numberOfDoneTasks, setNumberOfDoneTasks] = useState(0);
 
   function handleCreateNewTask(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -15,6 +16,36 @@ export function Task() {
     setTasks([...tasks, newTaskText]);
     setNewTaskText('');
   }
+
+  function handleDoneStatus(doneTaskStatus: boolean) {
+    if (doneTaskStatus == true) {
+      setNumberOfDoneTasks((done: number) => {
+        return done - 1;
+      });
+    }
+    if (doneTaskStatus == false) {
+      setNumberOfDoneTasks((done: number) => {
+        return done + 1;
+      });
+    }
+  }
+
+  function deleteTask(taskToDelete: string, taskToDeleteIsDone: boolean) {
+    if (taskToDeleteIsDone == true) {
+      handleDoneStatus(true);
+    }
+    setTasks(tasks.filter(task => {
+      return task !== taskToDelete
+    }));
+  }
+
+  // function clearTaskList() {
+        
+      // To do
+
+  // }
+
+  const isTaskListEmpty = tasks.length === 0;
 
   return (
     <div className={styles.task}>
@@ -30,18 +61,41 @@ export function Task() {
         </button>
       </form>
 
-      <TaskList
-        createdTaskCount={tasks.length}
-        doneTaskCount={0}
+      <TaskListInfo
+        numberOfTasks={tasks.length}
+        doneTaskCount={numberOfDoneTasks}
       />
+
+      {isTaskListEmpty && (
+        <div
+          className={styles.emptyInfo}>
+          <hr />
+          <ClipboardText size={56} className={styles.emptyIcon} />
+          <strong>Você ainda não tem tarefas cadastradas</strong>
+          <p>Crie tarefas e oranize seus intens a fazer</p>
+        </div>
+      )}
 
       <div>
         {tasks.map(task => {
           return <TaskItemList
+            key={task}
             taskText={task}
+            onDoneTask={handleDoneStatus}
+            onDeleteTask={deleteTask}
           />
         })}
       </div>
+
+      {/* {!isTaskListEmpty && (
+        <button
+          className={styles.clearButton}
+          onClick={clearTaskList}
+        >
+          <XCircle size={24} />
+        </button>
+      )} */}
+
     </div>
   );
 }
