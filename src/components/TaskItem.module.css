@@ -12,6 +12,7 @@
 
 .taskItem p {
   width: 100%;
+  word-break: normal;
 }
 
 /* Checked (Done) */

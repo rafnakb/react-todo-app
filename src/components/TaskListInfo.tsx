@@ -1,4 +1,3 @@
-import { XCircle } from 'phosphor-react';
 import styles from './TaskListInfo.module.css';
 
 interface TaskInfo {
@@ -7,6 +6,8 @@ interface TaskInfo {
 }
 
 export function TaskListInfo({ ...props }: TaskInfo) {
+
+  const isTaskListEmpty = props.numberOfTasks === 0;
 
   return (
     <div className={styles.taskList}>
@@ -17,11 +18,15 @@ export function TaskListInfo({ ...props }: TaskInfo) {
             {props.numberOfTasks}
           </span>
         </strong>
-        
+
         <strong className={styles.doneTasks}>
           Concluídas
           <span>
-            {props.doneTaskCount}{' de '}{props.numberOfTasks}
+            {isTaskListEmpty ? (
+              props.numberOfTasks
+            ) : (
+              props.doneTaskCount + ' de ' + props.numberOfTasks
+            )}
           </span>
         </strong>
       </div>

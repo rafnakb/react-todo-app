@@ -2,50 +2,60 @@ import styles from './Task.module.css';
 import { ClipboardText, PlusCircle, XCircle } from 'phosphor-react';
 import { MouseEvent, useState } from 'react';
 import { TaskListInfo } from './TaskListInfo';
-import { TaskItemList } from './TaskItemList';
+import { TaskItem } from './TaskItem';
+import { v4 as uuidv4 } from 'uuid';
+
+export interface TaskModel {
+  id: string;
+  content: string;
+  isDone: boolean
+}
 
 export function Task() {
 
-  const [tasks, setTasks] = useState<string[]>([]);
+  const [tasks, setTasks] = useState<TaskModel[]>([]);
   const [newTaskText, setNewTaskText] = useState('');
-  const [numberOfDoneTasks, setNumberOfDoneTasks] = useState(0);
 
   function handleCreateNewTask(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     if (newTaskText === '') return;
-    setTasks([...tasks, newTaskText]);
+
+    const newTask: TaskModel = {
+      id: uuidv4(),
+      content: newTaskText,
+      isDone: false
+    }
+
+    setTasks([...tasks, newTask]);
     setNewTaskText('');
   }
 
-  function handleDoneStatus(doneTaskStatus: boolean) {
-    if (doneTaskStatus == true) {
-      setNumberOfDoneTasks((done: number) => {
-        return done - 1;
-      });
-    }
-    if (doneTaskStatus == false) {
-      setNumberOfDoneTasks((done: number) => {
-        return done + 1;
-      });
-    }
+  function handleDoneStatus(idTask: string) {
+    const updateTaskList = tasks.map(task => {
+      if (task.id === idTask) {
+        return { ...task, isDone: !task.isDone }
+      }
+      return task;
+    });
+    setTasks(updateTaskList);
   }
 
-  function deleteTask(taskToDelete: string, taskToDeleteIsDone: boolean) {
-    if (taskToDeleteIsDone == true) {
-      handleDoneStatus(true);
-    }
-    setTasks(tasks.filter(task => {
-      return task !== taskToDelete
-    }));
+  function handleDeleteTask(idTask: string) {
+    const updateTaskList = tasks.filter(task => {
+      return task.id !== idTask
+    });
+    setTasks(updateTaskList);
   }
-
-  // function clearTaskList() {
-        
-      // To do
-
-  // }
 
   const isTaskListEmpty = tasks.length === 0;
+
+  function getDoneTaskCount(): number {
+    if (isTaskListEmpty) {
+      return 0;
+    }
+
+    return tasks.filter(task => task.isDone === true).length;
+  }
 
   return (
     <div className={styles.task}>
@@ -63,7 +73,7 @@ export function Task() {
 
       <TaskListInfo
         numberOfTasks={tasks.length}
-        doneTaskCount={numberOfDoneTasks}
+        doneTaskCount={getDoneTaskCount()}
       />
 
       {isTaskListEmpty && (
@@ -77,25 +87,17 @@ export function Task() {
       )}
 
       <div>
-        {tasks.map(task => {
-          return <TaskItemList
-            key={task}
-            taskText={task}
+        {tasks.map((task: TaskModel) => {
+          return <TaskItem
+            key={task.id}
+            id={task.id}
+            content={task.content}
+            isDone={task.isDone}
             onDoneTask={handleDoneStatus}
-            onDeleteTask={deleteTask}
+            onDeleteTask={handleDeleteTask}
           />
         })}
       </div>
-
-      {/* {!isTaskListEmpty && (
-        <button
-          className={styles.clearButton}
-          onClick={clearTaskList}
-        >
-          <XCircle size={24} />
-        </button>
-      )} */}
-
     </div>
   );
 }

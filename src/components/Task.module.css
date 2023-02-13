@@ -87,11 +87,3 @@ hr {
   color: var(--gray-300);
   font-weight: bold;
 }
-
-.clearButton {
-  color: var(--red-500);
-}
-
-.clearButton:hover {
-  color: var(--red-100);
-}
