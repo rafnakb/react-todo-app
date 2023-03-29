@@ -82,7 +82,7 @@ export function Task() {
           <hr />
           <ClipboardText size={56} className={styles.emptyIcon} />
           <strong>Você ainda não tem tarefas cadastradas</strong>
-          <p>Crie tarefas e oranize seus intens a fazer</p>
+          <p>Crie tarefas e organize seus itens a fazer</p>
         </div>
       )}
 
